@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import { createToken } from "./server/createToken.js"
 import { checkToken } from "./server/checkToken.js"
+import status from "./server/routStatus.js"
 
 
 
@@ -11,25 +12,26 @@ app.use(cors())
 
 
 
-app.get("/status", (req, res) => {
-   
-    checkToken(req.headers)
+
+
+
+app.get("/status", checkToken, (req, res) => {
+    res.json(status)
+})
+
+app.get("/messages",checkToken, (req, res) => {
     res.json("info")
 })
 
-// app.get("/messages", (req, res) => {
-//     res.json("info")
-// })
+app.post("/login", (req, res) => {
+    const { name, password } = req.body
+    const token = createToken(name, password)
+    res.json({ token, operator: { name } })
+})
 
-// app.post("/login", (req, res) => {
-//     const { name, password } = req.body
-//     const token = createToken(name, password)
-//     res.json({token,operator:{name}})
-// })
-
-// app.post("/messages", (req, res) => {
-//     res.json("info")
-// })
+app.post("/messages", (req, res) => {
+    res.json("info")
+})
 
 
 

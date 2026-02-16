@@ -1,18 +1,28 @@
 import jwt from "jsonwebtoken"
 import "dotenv/config"
 
-export function checkToken(headers){
-    const token = headers.authorization.split(' ')[1]
+export function checkToken(req, res, next) {
+    try {
+        console.log(req.headers);
+        
+        const token = req.headers.authorization;
+        if (!token) {
+            return ""
+        }
+console.log(token);
 
-    console.log(token);
-    if(!token){
-        log(token)
-        return ""
+        const decodedToken =
+            jwt.verify(token, process.env.SECRET);
+
+if(decodedToken){
+
+    next()
+}else{
+    res.send("token expaired")
+}
+    } catch (error) {
+        console.error(error)
     }
 
-    const decodedToken = 
-        jwt.verify(token, process.env.SECRET);
 
-    console.log(decodedToken);
-    
 }
