@@ -1,10 +1,12 @@
 import jwt from "jsonwebtoken"
-import dotenv from "dotenv"
+import "dotenv/config"
 import data from "../db/db.js"
 
-function createToken(user, password) {
 
-    let findUser = data.find(e => 
+
+export function createToken(user, password) {
+
+    const findUser = data.find(e =>
         e.name == user && e.password == password)
 
     if (findUser) {
@@ -13,16 +15,15 @@ function createToken(user, password) {
                 userId: user,
                 password: password
             },
-            "dsfdfasdf",
+            process.env.SECRET,
             { expiresIn: "1h" }
         )
         return token
     }
     else {
-        return ("sdf")
+        return ("user not found")
     }
 }
 
-console.log(createToken("a", "a"));
-// console.log(process.env.SECRET);
+
 

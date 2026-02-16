@@ -1,3 +1,3 @@
-const data = [{name:"a",password:"a"}]
+const data = [{name:"avi",password:"24"}]
 
 export default data
