@@ -3,13 +3,11 @@ import "dotenv/config"
 
 export function checkToken(req, res, next) {
     try {
-        console.log(req.headers);
         
         const token = req.headers.authorization;
         if (!token) {
             return ""
         }
-console.log(token);
 
         const decodedToken =
             jwt.verify(token, process.env.SECRET);

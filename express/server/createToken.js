@@ -8,7 +8,7 @@ export function createToken(user, password) {
 
     const findUser = data.find(e =>
         e.name == user && e.password == password)
-    console.log(findUser);
+    
 
     if (findUser) {
         const token = jwt.sign(
